@@ -36,4 +36,14 @@ public class SpringBootMongodbApplication implements CommandLineRunner {
         groceryItemRepo.save(new GroceryItem("Cheese Crackers", "Bonny Cheese Crackers Plain", 6, "snacks"));
         System.out.println("Data creation complete...");
     }
+
+    // Print details in readable form
+    public String getItemDetails(GroceryItem item) {
+        System.out.println(
+                "Item Name: " + item.getName() +
+                        ", \nQuantity: " + item.getQuantity() +
+                        ", \nItem Category: " + item.getCategory()
+        );
+        return "";
+    }
 }
