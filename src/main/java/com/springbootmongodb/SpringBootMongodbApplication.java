@@ -89,6 +89,16 @@ public class SpringBootMongodbApplication implements CommandLineRunner {
             System.out.println("Successfully updated " + itemsUpdated.size() + " items.");
     }
 
+    /**
+     * we can. We can delete the grocery item with a particular ID using the pre-defined deleteById method.
+     * To delete all the items, we can use the groceryItemRepo.deleteAll(); method. Deleting all the documents will not delete the collection.
+     */
+    // DELETE
+    public void deleteGroceryItem(String id) {
+        groceryItemRepo.deleteById(id);
+        System.out.println("Item with id " + id + " deleted...");
+    }
+
     // Print details in readable form
     public String getItemDetails(GroceryItem item) {
         System.out.println(
