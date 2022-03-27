@@ -43,6 +43,13 @@ public class SpringBootMongodbApplication implements CommandLineRunner {
         groceryItemRepo.findAll().forEach(item -> System.out.println(getItemDetails(item)));
     }
 
+    // 2. Get item by name
+    public void getGroceryItemByName(String name) {
+        System.out.println("Getting item by name: " + name);
+        GroceryItem item = groceryItemRepo.findGroceryItemByName(name);
+        System.out.println(getItemDetails(item));
+    }
+
     // Print details in readable form
     public String getItemDetails(GroceryItem item) {
         System.out.println(
