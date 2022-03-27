@@ -8,6 +8,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 
+import java.util.List;
+
 /*
 * Our class MdbSpringBootApplication implements the CommandLineRunner interface to run the spring application. ItemRepository is Autowired, allowing Spring to find it automatically. Spring initializes the Application Context using the @SpringBootApplication annotation. We also activate the Mongo Repositories using @EnableMongoRepositories
 * */
@@ -48,6 +50,14 @@ public class SpringBootMongodbApplication implements CommandLineRunner {
         System.out.println("Getting item by name: " + name);
         GroceryItem item = groceryItemRepo.findGroceryItemByName(name);
         System.out.println(getItemDetails(item));
+    }
+
+    // 3. Get name and quantity of a all items of a particular category
+    public void getItemsByCategory(String category) {
+        System.out.println("Getting items for the category " + category);
+        List<GroceryItem> list = groceryItemRepo.findAll(category);
+
+        list.forEach(item -> System.out.println("Name: " + item.getName() + ", Quantity: " + item.getQuantity()));
     }
 
     // Print details in readable form
