@@ -1,6 +1,7 @@
 package com.springbootmongodb;
 
 import com.springbootmongodb.model.GroceryItem;
+import com.springbootmongodb.repository.CustomItemRepository;
 import com.springbootmongodb.repository.ItemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -18,6 +19,9 @@ import java.util.List;
 public class SpringBootMongodbApplication implements CommandLineRunner {
     @Autowired
     ItemRepository groceryItemRepo;
+
+    @Autowired
+    CustomItemRepository customRepo;
 
     public static void main(String[] args) {
         SpringApplication.run(SpringBootMongodbApplication.class, args);
@@ -52,6 +56,10 @@ public class SpringBootMongodbApplication implements CommandLineRunner {
         System.out.println("\n------------FINAL COUNT OF GROCERY ITEMS-------------------------\n");
 
         findCountOfGroceryItems();
+
+        System.out.println("\n-----------UPDATE QUANTITY OF A GROCERY ITEM------------------------\n");
+
+        updateItemQuantity("Bonny Cheese Crackers Plain", 10);
 
         System.out.println("\n-------------------THANK YOU---------------------------");
     }
@@ -115,6 +123,15 @@ public class SpringBootMongodbApplication implements CommandLineRunner {
 
         if (itemsUpdated != null)
             System.out.println("Successfully updated " + itemsUpdated.size() + " items.");
+    }
+
+/**
+* update operation using CustomItemRepository which uses MongoTemplate.class
+ */
+    // UPDATE
+    public void updateItemQuantity(String name, float newQuantity) {
+        System.out.println("Updating quantity for " + name);
+        customRepo.updateItemQuantity(name, newQuantity);
     }
 
     /**
