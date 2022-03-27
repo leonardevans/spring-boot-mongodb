@@ -37,6 +37,12 @@ public class SpringBootMongodbApplication implements CommandLineRunner {
         System.out.println("Data creation complete...");
     }
 
+    // READ
+    // 1. Show all the data
+    public void showAllGroceryItems() {
+        groceryItemRepo.findAll().forEach(item -> System.out.println(getItemDetails(item)));
+    }
+
     // Print details in readable form
     public String getItemDetails(GroceryItem item) {
         System.out.println(
