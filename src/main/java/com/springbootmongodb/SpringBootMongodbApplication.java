@@ -11,8 +11,8 @@ import org.springframework.data.mongodb.repository.config.EnableMongoRepositorie
 import java.util.List;
 
 /*
-* Our class MdbSpringBootApplication implements the CommandLineRunner interface to run the spring application. ItemRepository is Autowired, allowing Spring to find it automatically. Spring initializes the Application Context using the @SpringBootApplication annotation. We also activate the Mongo Repositories using @EnableMongoRepositories
-* */
+ * Our class MdbSpringBootApplication implements the CommandLineRunner interface to run the spring application. ItemRepository is Autowired, allowing Spring to find it automatically. Spring initializes the Application Context using the @SpringBootApplication annotation. We also activate the Mongo Repositories using @EnableMongoRepositories
+ * */
 @SpringBootApplication
 @EnableMongoRepositories
 public class SpringBootMongodbApplication implements CommandLineRunner {
@@ -64,6 +64,29 @@ public class SpringBootMongodbApplication implements CommandLineRunner {
     public void findCountOfGroceryItems() {
         long count = groceryItemRepo.count();
         System.out.println("Number of documents in the collection: " + count);
+    }
+
+
+    /**
+     * Suppose we change our mind and like the word “munchies” better in place of “snacks” for our grocery list. We would need to change all the documents where the category is “snacks.”
+     */
+    public void updateCategoryName(String category) {
+        // Change to this new value
+        String newCategory = "munchies";
+
+        // Find all the items with the category snacks
+        List<GroceryItem> list = groceryItemRepo.findAll(category);
+
+        list.forEach(item -> {
+            // Update the category in each document
+            item.setCategory(newCategory);
+        });
+
+        // Save all the items in database
+        List<GroceryItem> itemsUpdated = groceryItemRepo.saveAll(list);
+
+        if (itemsUpdated != null)
+            System.out.println("Successfully updated " + itemsUpdated.size() + " items.");
     }
 
     // Print details in readable form
