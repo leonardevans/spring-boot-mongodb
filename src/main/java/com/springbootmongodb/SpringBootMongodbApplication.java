@@ -60,6 +60,12 @@ public class SpringBootMongodbApplication implements CommandLineRunner {
         list.forEach(item -> System.out.println("Name: " + item.getName() + ", Quantity: " + item.getQuantity()));
     }
 
+    // 4. Get count of documents in the collection
+    public void findCountOfGroceryItems() {
+        long count = groceryItemRepo.count();
+        System.out.println("Number of documents in the collection: " + count);
+    }
+
     // Print details in readable form
     public String getItemDetails(GroceryItem item) {
         System.out.println(
